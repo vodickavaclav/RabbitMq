@@ -2,6 +2,7 @@
 
 namespace Kdyby\RabbitMq\Command;
 
+use Kdyby\RabbitMq\Connection;
 use Kdyby\RabbitMq\Consumer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,12 +20,17 @@ class PurgeConsumerCommand extends Command
 {
 
 	/**
-	 * @inject
 	 * @var \Kdyby\RabbitMq\Connection
 	 */
 	public $connection;
 
 	protected static $defaultName = 'rabbitmq:purge';
+
+	public function __construct(Connection $connection)
+	{
+		parent::__construct();
+		$this->connection = $connection;
+	}
 
 	protected function configure()
 	{

@@ -3,7 +3,9 @@
 namespace Kdyby\RabbitMq\Command;
 
 use Kdyby\RabbitMq\AmqpMember;
+use Kdyby\RabbitMq\Connection;
 use Kdyby\RabbitMq\DI\RabbitMqExtension;
+use Nette\DI\Container;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -19,12 +21,17 @@ class SetupFabricCommand extends Command
 {
 
 	/**
-	 * @inject
 	 * @var \Nette\DI\Container
 	 */
 	public $container;
 
 	protected static $defaultName = 'rabbitmq:setup-fabric';
+
+	public function __construct(Container $container)
+	{
+		parent::__construct();
+		$this->container = $container;
+	}
 
 	protected function configure()
 	{

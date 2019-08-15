@@ -3,6 +3,7 @@
 namespace Kdyby\RabbitMq\Command;
 
 use Kdyby\RabbitMq\BaseConsumer as Consumer;
+use Kdyby\RabbitMq\Connection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +20,6 @@ abstract class BaseConsumerCommand extends Command
 {
 
 	/**
-	 * @inject
 	 * @var \Kdyby\RabbitMq\Connection
 	 */
 	public $connection;
@@ -35,6 +35,11 @@ abstract class BaseConsumerCommand extends Command
 	protected $amount;
 
 
+	public function __construct(Connection $connection)
+	{
+		parent::__construct();
+		$this->connection = $connection;
+	}
 
 	protected function configure()
 	{
