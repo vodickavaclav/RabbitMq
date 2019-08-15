@@ -189,8 +189,12 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 		$this->loadConnections($config['connection']);
 		$this->loadProducers($config['producers']);
 		$this->loadConsumers($config['consumers']);
-		$this->loadRpcClients($config['rpcClients']);
-		$this->loadRpcServers($config['rpcServers']);
+		if (isset($config['rpcClients'])) {
+			$this->loadRpcClients($config['rpcClients']);
+		}
+		if (isset($config['rpcServers'])) {
+			$this->loadRpcServers($config['rpcServers']);
+		}
 
 		foreach ($this->connectionsMeta as $name => $meta) {
 			$connection = $builder->getDefinition($meta['serviceId']);
