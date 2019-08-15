@@ -195,16 +195,17 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 
 
 		foreach ($this->connectionsMeta as $name => $meta) {
+			/** @var Nette\DI\Definitions\ServiceDefinition $connection */
 			$connection = $builder->getDefinition($meta['serviceId']);
 
 			if ($config['debugger']) {
 				$builder->addDefinition($panelService = $meta['serviceId'] . '.panel')
-					->setFactory('Kdyby\RabbitMq\Diagnostics\Panel')
+					->setFactory(Kdyby\RabbitMq\Diagnostics\Panel::class)
 					->addSetup('injectServiceMap', [
 						$meta['consumers'],
 						$meta['rpcServers'],
 					])
-					->addTag(Nette\DI\Extensions\InjectExtension::TAG_INJECT)
+					->addTag(Nette\DI\Extensions\InjectExtension::TAG_INJECT, false)
 					->setAutowired(FALSE);
 
 				$connection->addSetup('injectPanel', ['@' . $panelService]);
