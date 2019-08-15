@@ -155,7 +155,7 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 	public function loadConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		$config = $this->getConfig($this->defaults);
+		$config = $this->validateConfig($this->defaults);
 
 		foreach ($this->compiler->getExtensions() as $extension) {
 			if ($extension instanceof IProducersProvider) {
@@ -189,12 +189,9 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 		$this->loadConnections($config['connection']);
 		$this->loadProducers($config['producers']);
 		$this->loadConsumers($config['consumers']);
-		if (isset($config['rpcClients'])) {
-			$this->loadRpcClients($config['rpcClients']);
-		}
-		if (isset($config['rpcServers'])) {
-			$this->loadRpcServers($config['rpcServers']);
-		}
+		$this->loadRpcClients($config['rpcClients']);
+		$this->loadRpcServers($config['rpcServers']);
+		
 
 		foreach ($this->connectionsMeta as $name => $meta) {
 			$connection = $builder->getDefinition($meta['serviceId']);
