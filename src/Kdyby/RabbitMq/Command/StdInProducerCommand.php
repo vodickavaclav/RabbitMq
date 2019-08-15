@@ -23,7 +23,7 @@ class StdInProducerCommand extends Command
 	 */
 	public $connection;
 
-
+	protected static $defaultName = 'rabbitmq:stdin-producer';
 
 	protected function configure()
 	{

@@ -10,6 +10,7 @@ namespace Kdyby\RabbitMq\Command;
  */
 class ConsumerCommand extends BaseConsumerCommand
 {
+	protected static $defaultName = 'rabbitmq:consumer';
 
 	protected function configure()
 	{

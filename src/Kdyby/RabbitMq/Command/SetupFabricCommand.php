@@ -24,7 +24,7 @@ class SetupFabricCommand extends Command
 	 */
 	public $container;
 
-
+	protected static $defaultName = 'rabbitmq:setup-fabric';
 
 	protected function configure()
 	{

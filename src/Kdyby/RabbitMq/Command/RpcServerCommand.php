@@ -23,7 +23,7 @@ class RpcServerCommand extends Command
 	 */
 	public $connection;
 
-
+	protected static $defaultName = 'rabbitmq:rpc-server';
 
 	protected function configure()
 	{

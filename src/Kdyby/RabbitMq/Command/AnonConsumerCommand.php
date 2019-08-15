@@ -16,6 +16,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 class AnonConsumerCommand extends BaseConsumerCommand
 {
 
+	protected static $defaultName = 'rabbitmq:anon-consumer';
+
 	protected function configure()
 	{
 		parent::configure();

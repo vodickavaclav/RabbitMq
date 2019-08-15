@@ -24,7 +24,7 @@ class PurgeConsumerCommand extends Command
 	 */
 	public $connection;
 
-
+	protected static $defaultName = 'rabbitmq:purge';
 
 	protected function configure()
 	{
