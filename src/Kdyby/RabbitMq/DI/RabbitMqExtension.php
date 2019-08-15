@@ -481,7 +481,7 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 
 	private function loadConsole()
 	{
-		if (!class_exists('Kdyby\Console\DI\ConsoleExtension') || PHP_SAPI !== 'cli') {
+		if (!class_exists('Contributte\Console\DI\ConsoleExtension') || PHP_SAPI !== 'cli') {
 			return;
 		}
 
@@ -494,7 +494,7 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 			'Kdyby\RabbitMq\Command\SetupFabricCommand',
 			'Kdyby\RabbitMq\Command\StdInProducerCommand',
 		] as $i => $class) {
-			$builder->getDefinition()
+			$builder->addDefinition('console.'.$i)
 				->setClass($class);
 		}
 	}
