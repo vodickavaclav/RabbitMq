@@ -10,6 +10,7 @@
 
 namespace Kdyby\RabbitMq\DI;
 
+use Contributte\Console\DI\ConsoleExtension;
 use Kdyby;
 use Nette;
 use Nette\DI\Compiler;
@@ -494,8 +495,9 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 			'Kdyby\RabbitMq\Command\SetupFabricCommand',
 			'Kdyby\RabbitMq\Command\StdInProducerCommand',
 		] as $i => $class) {
-			$builder->addDefinition('console.'.$i)
-				->setClass($class);
+			$builder->addDefinition($this->prefix('console.' . $i))
+				->setClass($class)
+				->addTag(ConsoleExtension::COMMAND_TAG);
 		}
 	}
 
