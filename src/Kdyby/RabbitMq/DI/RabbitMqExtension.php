@@ -154,8 +154,8 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 
 	public function loadConfiguration()
 	{
-		$builder = $this->getContainerBuilder();
 		$config = $this->validateConfig($this->defaults);
+		$builder = $this->getContainerBuilder();
 
 		foreach ($this->compiler->getExtensions() as $extension) {
 			if ($extension instanceof IProducersProvider) {
@@ -191,24 +191,23 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 		$this->loadConsumers($config['consumers']);
 		$this->loadRpcClients($config['rpcClients']);
 		$this->loadRpcServers($config['rpcServers']);
-		
+
 
 		foreach ($this->connectionsMeta as $name => $meta) {
 			$connection = $builder->getDefinition($meta['serviceId']);
 
 			if ($config['debugger']) {
 				$builder->addDefinition($panelService = $meta['serviceId'] . '.panel')
-					->setClass('Kdyby\RabbitMq\Diagnostics\Panel')
+					->setFactory('Kdyby\RabbitMq\Diagnostics\Panel')
 					->addSetup('injectServiceMap', [
 						$meta['consumers'],
 						$meta['rpcServers'],
 					])
-					->setInject(FALSE)
+					->addTag(Nette\DI\Extensions\InjectExtension::TAG_INJECT)
 					->setAutowired(FALSE);
 
 				$connection->addSetup('injectPanel', ['@' . $panelService]);
 			}
-
 			$connection->addSetup('injectServiceLocator');
 			$connection->addSetup('injectServiceMap', [
 				$meta['producers'],
