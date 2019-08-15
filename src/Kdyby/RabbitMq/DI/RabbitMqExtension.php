@@ -494,7 +494,7 @@ class RabbitMqExtension extends Nette\DI\CompilerExtension
 			'Kdyby\RabbitMq\Command\SetupFabricCommand',
 			'Kdyby\RabbitMq\Command\StdInProducerCommand',
 		] as $i => $class) {
-			$builder->addDefinition($this->prefix('services.' . $i))
+			$builder->getDefinition()
 				->setClass($class);
 		}
 	}
