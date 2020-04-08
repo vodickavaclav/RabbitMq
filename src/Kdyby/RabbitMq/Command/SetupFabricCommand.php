@@ -63,6 +63,7 @@ class SetupFabricCommand extends Command
 				$service->setupFabric();
 			}
 		}
+		return 0;
 	}
 
 }
